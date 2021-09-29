@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <DXEnginePackageDir>$(SolutionDir)package\</DXEnginePackageDir>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutDir>$(SolutionDir)output\$(IntDir)</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link />
+    <PostBuildEvent>
+      <Command>xcopy "$(OutDir)$(TargetName).dll" "$(DXEnginePackageDir)package_dx12\bin\$(IntDir)" /y /d /s
+
+xcopy "$(OutDir)$(TargetName).lib" "$(DXEnginePackageDir)package_dx12\lib\$(IntDir)" /y /d /s</Command>
+    </PostBuildEvent>
+    <ClCompile>
+      <PreprocessorDefinitions>DX12HELLO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)pch;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="DXEnginePackageDir">
+      <Value>$(DXEnginePackageDir)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>
